@@ -19,9 +19,9 @@ const LiveMap = () => {
     <div>
       <MapContainer
         style={{ height: "480px", width: "100%" }}
-        center={[10, 0]}  // Center the map at a more balanced initial position
-        zoom={2}          // Set a reasonable initial zoom level
-        minZoom={2}       // Set minimum zoom level to show entire continents
+        center={[10, 25]}  // Center the map at a more balanced initial position
+        zoom={3}          // Set a reasonable initial zoom level
+        minZoom={3}       // Set minimum zoom level to show entire continents
         maxZoom={18}      // Set maximum zoom level for more detail
         maxBounds={[[85, -180], [-85, 180]]} // Restrict panning to the near-world bounds
         maxBoundsViscosity={1.0} // Make the map less likely to be dragged outside the bounds
