@@ -1,18 +1,33 @@
 import React, { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import axios from 'axios';
 
 const LiveMap = () => {
   const [markers, setMarkers] = useState([]);
+  const [locationInfo, setLocationInfo] = useState({});
 
   const MapEvents = () => {
     useMapEvents({
       click(e) {
         const newMarker = { lat: e.latlng.lat, lng: e.latlng.lng };
         setMarkers([...markers, newMarker]);
+        fetchLocationInfo(newMarker);
       }
     });
     return null;
+  };
+
+  const fetchLocationInfo = async (marker) => {
+    try {
+      const response = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${marker.lat}&lon=${marker.lng}`);
+      const data = response.data;
+      if (data && data.display_name) {
+        setLocationInfo({ ...locationInfo, [`${marker.lat},${marker.lng}`]: data.display_name });
+      }
+    } catch (error) {
+      console.error('Error fetching location info:', error);
+    }
   };
 
   const removeMarker = (indexToRemove) => {
@@ -39,6 +54,7 @@ const LiveMap = () => {
           <Marker key={index} position={[marker.lat, marker.lng]}>
             <Popup>
               <div>
+                <p>{locationInfo[`${marker.lat},${marker.lng}`] || 'Fetching location...'}</p>
                 <button onClick={() => removeMarker(index)}>Remove</button>
               </div>
             </Popup>
