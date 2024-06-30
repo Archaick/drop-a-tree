@@ -31,6 +31,7 @@ const LiveMap = () => {
   };
 
   const removeMarker = (indexToRemove) => {
+    event.stopPropagation()
     setMarkers(markers.filter((_, index) => index !== indexToRemove));
   };
 
@@ -55,7 +56,8 @@ const LiveMap = () => {
             <Popup>
               <div>
                 <p>{locationInfo[`${marker.lat},${marker.lng}`] || 'Fetching location...'}</p>
-                <button onClick={() => removeMarker(index)}>Remove</button>
+                <button onClick={(event) => removeMarker(index, event)}>Remove</button>
+
               </div>
             </Popup>
           </Marker>
