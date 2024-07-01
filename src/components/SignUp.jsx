@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react'
-import { auth } from './firebase'
+import { auth } from '../firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 const SignUp = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
-    cost [error, setError] = useState(null)
+    const [error, setError] = useState(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
