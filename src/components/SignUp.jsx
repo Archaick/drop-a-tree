@@ -11,8 +11,9 @@ const SignUp = () => {
         e.preventDefault()
         try {
             await createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
-        } catch (error) {
-            setError(error.massage)
+        } catch (err) {
+            setError(err.massage)
+            // error from the state not catch's parameter
             console.error(error)
         }
     }
